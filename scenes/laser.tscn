@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://db2gjvmw16rif"]
+
+[ext_resource type="Script" path="res://scripts/Laser.gd" id="1_kkh58"]
+[ext_resource type="Texture2D" uid="uid://b1lk2jqxxrnpe" path="res://assets/kenney_space-shooter-redux/PNG/Lasers/laserRed04.png" id="2_mmpyj"]
+[ext_resource type="AudioStream" uid="uid://bwu12hf5bm3pu" path="res://assets/audio/laser.wav" id="3_xvkuo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sskh0"]
+radius = 7.0
+height = 38.0
+
+[node name="Laser" type="Area2D"]
+position = Vector2(280, 781)
+script = ExtResource("1_kkh58")
+metadata/_edit_group_ = true
+metadata/_edit_horizontal_guides_ = [768.0]
+
+[node name="LaserGraphic" type="Sprite2D" parent="."]
+texture = ExtResource("2_mmpyj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sskh0")
+
+[node name="LaserSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xvkuo")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

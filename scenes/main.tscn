@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://dcqy3hqwss3qm"]
+
+[ext_resource type="Texture2D" uid="uid://c7n6obli0dq8a" path="res://assets/back.png" id="1_kindg"]
+[ext_resource type="PackedScene" uid="uid://m4bwsickaso7" path="res://scenes/player.tscn" id="2_ggo3r"]
+[ext_resource type="Script" path="res://scripts/EnemySpawner.gd" id="4_xkqwm"]
+[ext_resource type="PackedScene" uid="uid://d2706jhkcsrra" path="res://scenes/enemy_1.tscn" id="5_hfbra"]
+[ext_resource type="Script" path="res://scripts/Scorelabel.gd" id="5_pmoid"]
+[ext_resource type="Script" path="res://scripts/GameOverLabel.gd" id="6_hyvxo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nqkuk"]
+font_size = 36
+outline_size = 4
+outline_color = Color(1, 1, 0.270588, 1)
+shadow_size = 4
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kc1h"]
+font_size = 78
+font_color = Color(1, 1, 0, 1)
+outline_size = 10
+outline_color = Color(1, 0, 0, 1)
+shadow_size = 4
+
+[node name="Main" type="Node2D"]
+
+[node name="SpaceBackground" type="Sprite2D" parent="."]
+position = Vector2(271, 462)
+scale = Vector2(0.375, 0.729167)
+texture = ExtResource("1_kindg")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_ggo3r")]
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("4_xkqwm")
+enemy1_tscn = ExtResource("5_hfbra")
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+autostart = true
+
+[node name="Scorelabel" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 20.0
+offset_right = 163.0
+offset_bottom = 73.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_nqkuk")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_pmoid")
+metadata/_edit_lock_ = true
+
+[node name="GameOverLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 542.0
+offset_bottom = 961.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_4kc1h")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_hyvxo")
+metadata/_edit_lock_ = true
+
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="spawn_enemy1_ship"]
