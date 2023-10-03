@@ -1,8 +1,6 @@
 extends Label
 
-@onready var game_over_sound: AudioStreamPlayer = $"../GameOverSound"
 @onready var game_over_label: Label = $"."
-
 
 #func _ready() -> void:
 	#game_over_sound.play()
@@ -20,5 +18,5 @@ func _process(_delta: float) -> void:
 		#GameState.hi_score 
 		GameState.reset_game()
 			
-		if Input.is_action_just_pressed("exit"):
-			get_tree().quit()
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()
